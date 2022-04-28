@@ -25,23 +25,43 @@ import { useEffect, useState } from 'react'
 //  1. Callback luôn được gọi khi component mounted
 //  2. Cleanup func luôn được gọi khi component unmounted
 //  3. Cleanup function luôn được gọi trước khi callback được gọi 
+const lessons = [
+    {
+        id: 1,
+        name: "React JS"
+    },
+    {
+        id: 2,
+        name: "SPA"
+    },
+    {
+        id: 3,
+        name: "Arrow function"
+    },
+]
 function Content() {
-    const [count,setCount] = useState(1)
+    const [lessonId,setlessonId] = useState(1)
 
-    useEffect(() => {
-        console.log(`Mounted or Re-render lần ${count}`);
-
-        //cleanup fuc
-        return () => {
-            console.log(`Cleanup lần ${count}`);
+    useEffect (() => {
+        const handleComment = ({detail}) => {
+            console.log(detail);
         }
-    },[count])
-
+        window.addEventListener(`lesson-${lessonId}`,handleComment)
+    },[lessonId])
 
     return (
         <div>
-            <h1>{count}</h1>
-            <button onClick={() => setCount(count + 1)}>Click me!</button>
+            <ul>
+                {lessons.map(lesson => (
+                    <li
+                        key={lesson.id}
+                        style={{
+                            color: lessonId === lesson.id ? 'red' : '#333'
+                        }}
+                        onClick={() => setlessonId(lesson.id)}
+                    >{lesson.name}</li>
+                ))}
+            </ul>
         </div>
     )
 }

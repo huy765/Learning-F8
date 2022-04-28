@@ -1,5 +1,5 @@
 import { useState } from 'react' 
-import Content from "./Content"
+import Content from "./resize"
 
 function App() {
   const [show,setShow ] = useState(false)
